@@ -1,8 +1,8 @@
 {
-  "name": "paper-dashboard-react",
+  "name": "shrimp manager",
   "version": "1.1.0",
   "private": true,
-  "homepage": "https://demos.creative-tim.com/paper-dashboard-react/#/dashboard",
+  "homepage": "https://shrimp-project.herokuapp.com/",
   "dependencies": {
     "antd": "^3.25.1",
     "axios": "^0.19.0",
