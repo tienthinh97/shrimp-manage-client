@@ -36,18 +36,18 @@ class Signin extends Component {
 
   handleSubmit(event) {
 		event.preventDefault();
-		// const url = 'http://localhost:3001/signin';
-		const url = 'https://longuit.herokuapp.com/signin';
+		const url = 'http://localhost:3001/signin';
+		// const url = 'http://103.137.184.84:3001/signin';
 		const {username, password, dispatch} = this.props;
 		dispatch(fetchDataBegin());
     axios.post(url, {
       'username': username,
       'password': password
     })
-  .then((res) => { 
+  .then((res) => {
     if (res.status === 200){
-			const token = res.data.token;
-			return cookie.save('token', token, { path: '/', maxAge: 60 })
+			const token = res.data;
+			return cookie.save('token', token, { path: '/', maxAge: 600000 })
   } else {
       throw new Error ('User not found!');
     }

@@ -13,6 +13,12 @@ export const IS_LOGIN = 'IS_LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const TOKEN = 'TOKEN';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const NEW_VALUE = 'NEW_VALUE';
+
+export const newValue = value => ({
+  type: NEW_VALUE,
+  payload: {value}
+})
 
 export const logout = () => ({
   type: LOGOUT

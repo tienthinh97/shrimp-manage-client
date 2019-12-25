@@ -1,4 +1,4 @@
-
+// import axios from 'axios'
 import React from "react";
 // react plugin used to create charts
 import { Line, Pie } from "react-chartjs-2";
@@ -12,6 +12,7 @@ import {
   Row,
   Col
 } from "reactstrap";
+import {connect} from 'react-redux';
 
 // core components
 import {
@@ -22,11 +23,20 @@ import {
 
 
 class Dashboard extends React.Component {
+  
+
+  componentDidMount(){
+    
+  }
+  
 
   render() {
     
+    var data = this.props.newValue
+    const arr = [];
+    arr.push(data)
+    console.log("data:", arr)
     return (
-      <>
         <div className="content">
           <Row>
             <Col lg="3" md="6" sm="6">
@@ -35,13 +45,13 @@ class Dashboard extends React.Component {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-globe text-warning" />
+                        <i className="nc-icon nc-support-17 text-warning" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Amoniac</p>
-                        <CardTitle tag="p">320 ppm</CardTitle>
+                      <CardTitle tag="p">{data.amoniac}</CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -61,13 +71,13 @@ class Dashboard extends React.Component {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-money-coins text-success" />
+                        <i className="nc-icon nc-umbrella-13 text-danger" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Temperature</p>
-                        <CardTitle tag="p">27 °C</CardTitle>
+                        <CardTitle tag="p">{data.temp} °C</CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -87,13 +97,13 @@ class Dashboard extends React.Component {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-vector text-danger" />
+                        <i className="nc-icon nc-air-baloon text-primary" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Cacbonic</p>
-                        <CardTitle tag="p">300 ppm</CardTitle>
+                        <CardTitle tag="p">{data.cacbonic} mg/L</CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -119,7 +129,113 @@ class Dashboard extends React.Component {
                     <Col md="8" xs="7">
                       <div className="numbers">
                         <p className="card-category">Oxy</p>
-                        <CardTitle tag="p">350 ppm</CardTitle>
+                        <CardTitle tag="p">{data.oxy} mg/L</CardTitle>
+                        <p />
+                      </div>
+                    </Col>
+                  </Row>
+                </CardBody>
+                <CardFooter>
+                  <hr />
+                  <div className="stats">
+                    <i className="fas fa-sync-alt" /> Update now
+                  </div>
+                </CardFooter>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg="3" md="6" sm="6">
+              <Card className="card-stats">
+                <CardBody>
+                  <Row>
+                    <Col md="4" xs="5">
+                      <div className="icon-big text-center icon-warning">
+                        <i className="nc-icon nc-bulb-63 text-warning" />
+                      </div>
+                    </Col>
+                    <Col md="8" xs="7">
+                      <div className="numbers">
+                        <p className="card-category">Light</p>
+                      <CardTitle tag="p">{data.lux} lux</CardTitle>
+                        <p />
+                      </div>
+                    </Col>
+                  </Row>
+                </CardBody>
+                <CardFooter>
+                  <hr />
+                  <div className="stats">
+                    <i className="fas fa-sync-alt" /> Update Now
+                  </div>
+                </CardFooter>
+              </Card>
+            </Col>
+            <Col lg="3" md="6" sm="6">
+              <Card className="card-stats">
+                <CardBody>
+                  <Row>
+                    <Col md="4" xs="5">
+                      <div className="icon-big text-center icon-warning">
+                        <i className="nc-icon nc-box text-success" />
+                      </div>
+                    </Col>
+                    <Col md="8" xs="7">
+                      <div className="numbers">
+                        <p className="card-category">Turbidity</p>
+                        <CardTitle tag="p">{data.turb} mg/L</CardTitle>
+                        <p />
+                      </div>
+                    </Col>
+                  </Row>
+                </CardBody>
+                <CardFooter>
+                  <hr />
+                  <div className="stats">
+                    <i className="far fa-calendar" /> Last day
+                  </div>
+                </CardFooter>
+              </Card>
+            </Col>
+            <Col lg="3" md="6" sm="6">
+              <Card className="card-stats">
+                <CardBody>
+                  <Row>
+                    <Col md="4" xs="5">
+                      <div className="icon-big text-center icon-warning">
+                        <i className="nc-icon nc-chart-bar-32 text-danger" />
+                      </div>
+                    </Col>
+                    <Col md="8" xs="7">
+                      <div className="numbers">
+                        <p className="card-category">pH</p>
+                        <CardTitle tag="p">{data.ph}</CardTitle>
+                        <p />
+                      </div>
+                    </Col>
+                  </Row>
+                </CardBody>
+                <CardFooter>
+                  <hr />
+                  <div className="stats">
+                    <i className="far fa-clock" /> In the last hour
+                  </div>
+                </CardFooter>
+              </Card>
+            </Col>
+            <Col lg="3" md="6" sm="6">
+              <Card className="card-stats">
+                <CardBody>
+                  <Row>
+                    <Col md="4" xs="5">
+                      <div className="icon-big text-center icon-warning">
+                        <i className="nc-icon nc-button-power text-success" />
+                      </div>
+                    </Col>
+                    <Col md="8" xs="7">
+                      <div className="numbers">
+                        <p className="card-category">Battery</p>
+                        <CardTitle tag="p">{data.bat} %</CardTitle>
                         <p />
                       </div>
                     </Col>
@@ -213,11 +329,12 @@ class Dashboard extends React.Component {
             </Col>
           </Row>
         </div>
-      </>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  newValue: state.sensor.newValue
+})
 
-
-export default Dashboard;
+export default connect(mapStateToProps)(Dashboard)

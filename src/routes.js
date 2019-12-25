@@ -2,6 +2,7 @@ import Dashboard from "views/Dashboard.jsx";
 import TableList from "views/Tables.jsx";
 // import Signin from "./components/login/signin";
 // import Signup from "./components/login/signup";
+import Icons from 'views/Icons'
 
 var routes = [
   {
@@ -19,13 +20,13 @@ var routes = [
   //   path: "/signup",
   //   component: Signup,
   // },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   icon: "nc-icon nc-diamond",
-  //   component: Icons,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/icons",
+    name: "Icons",
+    icon: "nc-icon nc-diamond",
+    component: Icons,
+    layout: "/admin"
+  },
   // {
   //   path: "/maps",
   //   name: "Maps",

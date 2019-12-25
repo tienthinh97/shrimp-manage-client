@@ -1,4 +1,4 @@
-import {isLogin, fetchDataSuccess}from '../redux/actions';
+import {isLogin, fetchDataSuccess, newValue}from '../redux/actions';
 import cookie from 'react-cookies';
 import socketIOClient from "socket.io-client";
 import {connect} from 'react-redux';
@@ -26,14 +26,15 @@ class Dashboard extends React.Component {
       endPoint: "https://longuit.herokuapp.com/",
 			deviceOneOn: false,
 			deviceOneOff: false,
-			data: null
+      data: null,
+      newValue: null
     };
     this.mainPanel = React.createRef();
   }
   
   checkLogin() {
-		// const url = 'http://localhost:3001/';
-		const url = 'https://longuit.herokuapp.com/';
+		const url = 'http://localhost:3001/';
+		// const url = 'http://103.137.184.84:3001/';
 		const { dispatch } = this.props;
 		const token = cookie.load('token');
 		axios.get(url, {
@@ -43,14 +44,29 @@ class Dashboard extends React.Component {
 			}
 		})
 		.then(res => {
-			console.log(res)
-			if(res.status === 200) {
 				dispatch(fetchDataSuccess(res.data.fullname))
 				dispatch(isLogin())
-			}
 		})
 		.catch(err => console.log(err))
-	}
+  }
+  getData() {
+    const { dispatch } = this.props;
+    const url = 'http://localhost:3001/newValue'
+    // const url = 'http://103.137.184.84:3001/newValue'
+    const token = cookie.load('token');
+    axios.get(url, {
+      headers: {
+				'token': token,
+        'Content-Type': 'application/json'
+			}
+    })
+    .then(function (response) {
+      dispatch(newValue(response.data))
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
   sendOn() {
 		const socket = socketIOClient(this.state.endPoint);
 			socket.emit("device-one","on")
@@ -63,28 +79,12 @@ class Dashboard extends React.Component {
   
   componentDidMount() {
     this.checkLogin();
+    this.getData();
 		const socket = socketIOClient(this.state.endPoint);
 		socket.on("deviceOne", function(data) {
 			console.log(data)
 			alert(data);
-		})
-    // if (navigator.platform.indexOf("Win") > -1) {
-    //   ps = new PerfectScrollbar(this.mainPanel.current);
-    //   document.body.classList.toggle("perfect-scrollbar-on");
-    // }
-  }
-  // componentWillUnmount() {
-  //   if (navigator.platform.indexOf("Win") > -1) {
-  //     ps.destroy();
-  //     document.body.classList.toggle("perfect-scrollbar-on");
-  //   }
-  // }
-  // componentDidUpdate(e) {
-  //   if (e.history.action === "PUSH") {
-  //     this.mainPanel.current.scrollTop = 0;
-  //     document.scrollingElement.scrollTop = 0;
-  //   }
-  // }
+		})}
   handleActiveClick = color => {
     this.setState({ activeColor: color });
   };
@@ -93,6 +93,7 @@ class Dashboard extends React.Component {
   };
   render() {
     const login = this.props.isLogin;
+    console.log("props in admin:", this.props)
     if(!login) {
       return <Redirect to="/signin" />;
     }
@@ -134,7 +135,8 @@ const mapStateToProps = state => ({
   username: state.login.username,
   password: state.login.password,
   isLogin: state.login.isLogin,
-  token: state.login.token
+  token: state.login.token,
+  newValue: state.sensor.newValue
 })
 export default connect(mapStateToProps)(Dashboard)
 

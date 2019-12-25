@@ -20,20 +20,26 @@ class Tables extends React.Component {
             <Col md="12">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Temperature</CardTitle>
+                  <CardTitle tag="h4">Sensor data</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Table responsive>
                     <thead className="text-primary">
                       <tr>
-                        <th>Date</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th className="text-right">Salary</th>
+                        <th>Sensor</th>
+                        <th>Oxy</th>
+                        <th>Cacbonic</th>
+                        <th>pH</th>
+                        <th>Amoniac</th>
+                        <th>Battery</th>
+                        <th className="text-right">Date</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
+                        <td>Dakota Rice</td>
+                        <td>Niger</td>
+                        <td>Oud-Turnhout</td>
                         <td>Dakota Rice</td>
                         <td>Niger</td>
                         <td>Oud-Turnhout</td>
