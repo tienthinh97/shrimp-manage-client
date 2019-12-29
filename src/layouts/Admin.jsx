@@ -36,8 +36,8 @@ class Dashboard extends React.Component {
     this.checkLogin();
     // this.getData();
     const { dispatch } = this.props;
-    const url = 'http://localhost:3001/newValue'
-    // const url = 'http://103.137.184.84:3001/newValue'
+    // const url = 'http://localhost:3001/newValue'
+    const url = 'http://103.137.184.84:3001/newValue'
     const token = cookie.load('token');
     axios.get(url, {
       headers: {
@@ -58,8 +58,8 @@ class Dashboard extends React.Component {
     // })
   }
   checkLogin() {
-		const url = 'http://localhost:3001/';
-		// const url = 'http://103.137.184.84:3001/';
+		// const url = 'http://localhost:3001/';
+		const url = 'http://103.137.184.84:3001/';
 		const { dispatch } = this.props;
 		const token = cookie.load('token');
 		axios.get(url, {
@@ -76,8 +76,8 @@ class Dashboard extends React.Component {
   }
   getData() {
     const { dispatch } = this.props;
-    const url = 'http://localhost:3001/newValue'
-    // const url = 'http://103.137.184.84:3001/newValue'
+    // const url = 'http://localhost:3001/newValue'
+    const url = 'http://103.137.184.84:3001/newValue'
     const token = cookie.load('token');
     axios.get(url, {
       headers: {

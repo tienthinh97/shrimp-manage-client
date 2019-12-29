@@ -33,8 +33,8 @@ class Signup extends Component {
   handleSubmit(event) {
 		event.preventDefault();
 		console.log(this.state)
-		const url = 'http://localhost:3001/signup';
-		// const url = 'http://103.137.184.84:3001/signup';
+		// const url = 'http://localhost:3001/signup';
+		const url = 'http://103.137.184.84:3001/signup';
 		const {fullname, email, username, password} = this.state;
     axios.post(url, {
 			'fullname': fullname,
