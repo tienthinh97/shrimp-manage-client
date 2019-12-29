@@ -13,6 +13,7 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
+
 import routes from "routes.js";
 
 // var ps;
@@ -31,7 +32,31 @@ class Dashboard extends React.Component {
     };
     this.mainPanel = React.createRef();
   }
-  
+  componentWillMount() {
+    this.checkLogin();
+    // this.getData();
+    const { dispatch } = this.props;
+    const url = 'http://localhost:3001/newValue'
+    // const url = 'http://103.137.184.84:3001/newValue'
+    const token = cookie.load('token');
+    axios.get(url, {
+      headers: {
+				'token': token,
+        'Content-Type': 'application/json'
+			}
+    })
+    .then(function (response) {
+      dispatch(newValue(response.data))
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+		// const socket = socketIOClient(this.state.endPoint);
+		// socket.on("deviceOne", function(data) {
+		// 	console.log(data)
+		// 	alert(data);
+    // })
+  }
   checkLogin() {
 		const url = 'http://localhost:3001/';
 		// const url = 'http://103.137.184.84:3001/';
@@ -77,14 +102,7 @@ class Dashboard extends React.Component {
 			socket.emit("device-one","off")
   }
   
-  componentDidMount() {
-    this.checkLogin();
-    this.getData();
-		const socket = socketIOClient(this.state.endPoint);
-		socket.on("deviceOne", function(data) {
-			console.log(data)
-			alert(data);
-		})}
+  
   handleActiveClick = color => {
     this.setState({ activeColor: color });
   };

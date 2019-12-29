@@ -1,5 +1,5 @@
 import React from "react";
-
+import axios from 'axios';
 // reactstrap components
 import {
   Card,
@@ -12,7 +12,17 @@ import {
 } from "reactstrap";
 
 class Tables extends React.Component {
+  state = {data: []}
+  componentDidMount() {
+    axios.get('http://localhost:3001/sensor')
+    .then(result => {
+      this.setState({data: result.data})
+      console.log("table:", this.state.data)
+    })
+    .catch(err => console.log(err))
+  }
   render() {
+    let data = this.state.data
     return (
       <>
         <div className="content">
@@ -30,123 +40,32 @@ class Tables extends React.Component {
                         <th>Oxy</th>
                         <th>Cacbonic</th>
                         <th>pH</th>
+                        <th>Temperature</th>
+                        <th>Turbidity</th>
+                        <th>Light</th>
                         <th>Amoniac</th>
                         <th>Battery</th>
+                        {/* <th className="text-right">Date</th> */}
                         <th className="text-right">Date</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Dakota Rice</td>
-                        <td>Niger</td>
-                        <td>Oud-Turnhout</td>
-                        <td>Dakota Rice</td>
-                        <td>Niger</td>
-                        <td>Oud-Turnhout</td>
-                        <td className="text-right">$36,738</td>
-                      </tr>
-                      <tr>
-                        <td>Minerva Hooper</td>
-                        <td>Curaçao</td>
-                        <td>Sinaai-Waas</td>
-                        <td className="text-right">$23,789</td>
-                      </tr>
-                      <tr>
-                        <td>Sage Rodriguez</td>
-                        <td>Netherlands</td>
-                        <td>Baileux</td>
-                        <td className="text-right">$56,142</td>
-                      </tr>
-                      <tr>
-                        <td>Philip Chaney</td>
-                        <td>Korea, South</td>
-                        <td>Overland Park</td>
-                        <td className="text-right">$38,735</td>
-                      </tr>
-                      <tr>
-                        <td>Doris Greene</td>
-                        <td>Malawi</td>
-                        <td>Feldkirchen in Kärnten</td>
-                        <td className="text-right">$63,542</td>
-                      </tr>
-                      <tr>
-                        <td>Mason Porter</td>
-                        <td>Chile</td>
-                        <td>Gloucester</td>
-                        <td className="text-right">$78,615</td>
-                      </tr>
-                      <tr>
-                        <td>Jon Porter</td>
-                        <td>Portugal</td>
-                        <td>Gloucester</td>
-                        <td className="text-right">$98,615</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col md="12">
-              <Card className="card-plain">
-                <CardHeader>
-                  <CardTitle tag="h4">Table on Plain Background</CardTitle>
-                  <p className="card-category">
-                    Here is a subtitle for this table
-                  </p>
-                </CardHeader>
-                <CardBody>
-                  <Table responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th className="text-right">Salary</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Dakota Rice</td>
-                        <td>Niger</td>
-                        <td>Oud-Turnhout</td>
-                        <td className="text-right">$36,738</td>
-                      </tr>
-                      <tr>
-                        <td>Minerva Hooper</td>
-                        <td>Curaçao</td>
-                        <td>Sinaai-Waas</td>
-                        <td className="text-right">$23,789</td>
-                      </tr>
-                      <tr>
-                        <td>Sage Rodriguez</td>
-                        <td>Netherlands</td>
-                        <td>Baileux</td>
-                        <td className="text-right">$56,142</td>
-                      </tr>
-                      <tr>
-                        <td>Philip Chaney</td>
-                        <td>Korea, South</td>
-                        <td>Overland Park</td>
-                        <td className="text-right">$38,735</td>
-                      </tr>
-                      <tr>
-                        <td>Doris Greene</td>
-                        <td>Malawi</td>
-                        <td>Feldkirchen in Kärnten</td>
-                        <td className="text-right">$63,542</td>
-                      </tr>
-                      <tr>
-                        <td>Mason Porter</td>
-                        <td>Chile</td>
-                        <td>Gloucester</td>
-                        <td className="text-right">$78,615</td>
-                      </tr>
-                      <tr>
-                        <td>Jon Porter</td>
-                        <td>Portugal</td>
-                        <td>Gloucester</td>
-                        <td className="text-right">$98,615</td>
-                      </tr>
+                      {data.map((element, index) => {
+                        return(
+                          <tr key={index}>
+                            <td>{element.addr}</td>
+                            <td>{element.oxy}</td>
+                            <td>{element.cacbonic}</td>
+                            <td>{element.ph}</td>
+                            <td>{element.temp} °C</td>
+                            <td>{element.turb}</td>
+                            <td>{element.lux}</td>
+                            <td>{element.amoniac}</td>
+                            <td>{element.bat} %</td>
+                            <td className="text-right">{element.createdAt}</td>
+                          </tr>
+                        )
+                      })}
                     </tbody>
                   </Table>
                 </CardBody>

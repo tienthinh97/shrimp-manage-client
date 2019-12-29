@@ -2,6 +2,7 @@
 import React from "react";
 // react plugin used to create charts
 import { Line, Pie } from "react-chartjs-2";
+import ReactDelayRender from 'react-delay-render';
 // reactstrap components
 import {
   Card,
@@ -23,19 +24,15 @@ import {
 
 
 class Dashboard extends React.Component {
-  
-
-  componentDidMount(){
-    
+  componentWillMount(){
+    setTimeout(()=>{}, 2000)
   }
-  
-
   render() {
     
     var data = this.props.newValue
     const arr = [];
     arr.push(data)
-    console.log("data:", arr)
+    console.log("data:", data)
     return (
         <div className="content">
           <Row>
@@ -337,4 +334,5 @@ const mapStateToProps = state => ({
   newValue: state.sensor.newValue
 })
 
-export default connect(mapStateToProps)(Dashboard)
+// export default connect(mapStateToProps)(Dashboard)
+export default ReactDelayRender({ delay: 1000 })(connect(mapStateToProps)(Dashboard));
