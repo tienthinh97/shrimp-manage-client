@@ -19,7 +19,7 @@ class Tables extends React.Component {
       this.setState({data: result.data})
       console.log("table:", this.state.data)
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log("loi",err))
   }
   render() {
     let data = this.state.data

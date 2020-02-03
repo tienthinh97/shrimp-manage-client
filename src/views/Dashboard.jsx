@@ -25,14 +25,11 @@ import {
 
 class Dashboard extends React.Component {
   componentWillMount(){
-    setTimeout(()=>{}, 2000)
+    setTimeout(()=>{}, 500)
   }
+  
   render() {
-    
     var data = this.props.newValue
-    const arr = [];
-    arr.push(data)
-    console.log("data:", data)
     return (
         <div className="content">
           <Row>
@@ -335,4 +332,4 @@ const mapStateToProps = state => ({
 })
 
 // export default connect(mapStateToProps)(Dashboard)
-export default ReactDelayRender({ delay: 1000 })(connect(mapStateToProps)(Dashboard));
+export default ReactDelayRender({ delay: 2500 })(connect(mapStateToProps)(Dashboard));
