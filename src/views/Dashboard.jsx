@@ -14,6 +14,10 @@ import {
   Col
 } from "reactstrap";
 import {connect} from 'react-redux';
+import axios from 'axios';
+import cookie from 'react-cookies';
+import {newValue}from '../redux/actions';
+import moment from "moment";
 
 // core components
 import {
@@ -24,12 +28,61 @@ import {
 
 
 class Dashboard extends React.Component {
-  componentWillMount(){
-    setTimeout(()=>{}, 500)
+  state = {data: []}
+  componentDidMount() {
+    setTimeout(() => {
+      axios.get('http://103.137.184.84:3001/newValue')
+    .then(result => {
+      this.setState({data: result.data})
+      console.log("table:", this.state.data)
+    })
+    .catch(err => console.log("loi",err))
+    }, 100);
+  }
+  // componentWillMount(){
+  //   setTimeout(()=>{}, 100)
+  // }
+  // componentDidMount() {
+  //   const url = 'http://localhost:3001/newValue'
+  //   const token = cookie.load('token');
+  //   axios.get(url, {
+  //     headers: {
+	// 			'token': token,
+  //       'Content-Type': 'application/json'
+	// 		}
+  //   })
+  //   .then(function (response) {
+  //     this.setState({newValue: response.data})
+  //     console.log("table:", this.state.newValue)
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // }
+
+  getData() {
+    const { dispatch } = this.props;
+    // const url = 'http://localhost:3001/newValue'
+    const url = 'http://103.137.184.84:3001/newValue'
+    const token = cookie.load('token');
+    axios.get(url, {
+      headers: {
+				'token': token,
+        'Content-Type': 'application/json'
+			}
+    })
+    .then(function (response) {
+      dispatch(newValue(response.data))
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
   
   render() {
-    var data = this.props.newValue
+    // var data = this.props.newValue
+    var data = this.state.data
+    console.log(this.props)
     return (
         <div className="content">
           <Row>
@@ -54,7 +107,7 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update Now
+                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
                   </div>
                 </CardFooter>
               </Card>
@@ -80,7 +133,7 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="far fa-calendar" /> Last day
+                    <i className="far fa-calendar" /> {moment(data.createdAt).fromNow()}
                   </div>
                 </CardFooter>
               </Card>
@@ -106,7 +159,7 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="far fa-clock" /> In the last hour
+                    <i className="far fa-clock" /> {moment(data.createdAt).fromNow()}
                   </div>
                 </CardFooter>
               </Card>
@@ -132,7 +185,7 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update now
+                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
                   </div>
                 </CardFooter>
               </Card>
@@ -160,7 +213,7 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update Now
+                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
                   </div>
                 </CardFooter>
               </Card>
@@ -186,7 +239,7 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="far fa-calendar" /> Last day
+                    <i className="far fa-calendar" /> {moment(data.createdAt).fromNow()}
                   </div>
                 </CardFooter>
               </Card>
@@ -212,7 +265,7 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="far fa-clock" /> In the last hour
+                    <i className="far fa-clock" /> {moment(data.createdAt).fromNow()}
                   </div>
                 </CardFooter>
               </Card>
@@ -238,7 +291,7 @@ class Dashboard extends React.Component {
                 <CardFooter>
                   <hr />
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> Update now
+                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
                   </div>
                 </CardFooter>
               </Card>
@@ -332,4 +385,4 @@ const mapStateToProps = state => ({
 })
 
 // export default connect(mapStateToProps)(Dashboard)
-export default ReactDelayRender({ delay: 2500 })(connect(mapStateToProps)(Dashboard));
+export default ReactDelayRender({ delay: 0 })(connect(mapStateToProps)(Dashboard));

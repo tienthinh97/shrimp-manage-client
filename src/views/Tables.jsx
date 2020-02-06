@@ -10,11 +10,12 @@ import {
   Row,
   Col
 } from "reactstrap";
+import moment from "moment";
 
 class Tables extends React.Component {
   state = {data: []}
   componentDidMount() {
-    axios.get('http://localhost:3001/sensor')
+    axios.get('http://103.137.184.84:3001/sensor')
     .then(result => {
       this.setState({data: result.data})
       console.log("table:", this.state.data)
@@ -62,7 +63,7 @@ class Tables extends React.Component {
                             <td>{element.lux}</td>
                             <td>{element.amoniac}</td>
                             <td>{element.bat} %</td>
-                            <td className="text-right">{element.createdAt}</td>
+                            <td className="text-right">{moment(element.createdAt).fromNow()}</td>
                           </tr>
                         )
                       })}

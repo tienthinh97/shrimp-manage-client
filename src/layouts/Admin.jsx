@@ -32,25 +32,26 @@ class Dashboard extends React.Component {
     };
     this.mainPanel = React.createRef();
   }
-  componentWillMount() {
+  componentDidMount() {
     this.checkLogin();
     // this.getData();
-    const { dispatch } = this.props;
-    // const url = 'http://localhost:3001/newValue'
-    const url = 'http://103.137.184.84:3001/newValue'
-    const token = cookie.load('token');
-    axios.get(url, {
-      headers: {
-				'token': token,
-        'Content-Type': 'application/json'
-			}
-    })
-    .then(function (response) {
-      dispatch(newValue(response.data))
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // const { dispatch } = this.props;
+    // // const url = 'http://localhost:3001/newValue'
+    // const url = 'http://103.137.184.84:3001/newValue'
+    // const token = cookie.load('token');
+    // axios.get(url, {
+    //   headers: {
+		// 		'token': token,
+    //     'Content-Type': 'application/json'
+		// 	}
+    // })
+    // .then(function (response) {
+    //   dispatch(newValue(response.data))
+    //   // this.props.newValue = response.data
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
 		// const socket = socketIOClient(this.state.endPoint);
 		// socket.on("deviceOne", function(data) {
 		// 	console.log(data)
@@ -129,6 +130,7 @@ class Dashboard extends React.Component {
             {routes.map((prop, key) => {
               return (
                 <Route
+                  {...this.props}
                   path={prop.layout + prop.path}
                   component={prop.component}
                   key={key}

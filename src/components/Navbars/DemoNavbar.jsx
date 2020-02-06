@@ -22,7 +22,8 @@ import {
 } from "reactstrap";
 
 import routes from "routes.js";
-
+import {newValue}from '../../redux/actions';
+import axios from 'axios';
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -34,6 +35,24 @@ class Header extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.dropdownToggle = this.dropdownToggle.bind(this);
     this.sidebarToggle = React.createRef();
+  }
+  getData() {
+    const { dispatch } = this.props;
+    // const url = 'http://localhost:3001/newValue'
+    const url = 'http://103.137.184.84:3001/newValue'
+    const token = cookie.load('token');
+    axios.get(url, {
+      headers: {
+				'token': token,
+        'Content-Type': 'application/json'
+			}
+    })
+    .then(function (response) {
+      dispatch(newValue(response.data))
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
   logout() {
     cookie.remove('token');
@@ -87,6 +106,7 @@ class Header extends React.Component {
   }
   componentDidMount() {
     window.addEventListener("resize", this.updateColor.bind(this));
+    // this.getData()
   }
   componentDidUpdate(e) {
     if (
@@ -193,6 +213,7 @@ const mapStateToProps = state => ({
   docsActive: state.header.docsActive,
   news: state.header.newsActive,
   data: state.login.data,
-  isLogin: state.login.isLogin
+  isLogin: state.login.isLogin,
+  newValue: state.sensor.newValue
 })
 export default connect(mapStateToProps)(Header);
