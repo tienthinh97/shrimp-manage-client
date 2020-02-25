@@ -23,21 +23,33 @@ import moment from "moment";
 import {
   dashboard24HoursPerformanceChart,
   dashboardEmailStatisticsChart,
-  dashboardNASDAQChart
+  dashboardNASDAQChart,
+  luxChart
 } from "variables/charts.jsx";
+// import {
+//   dashboardNASDAQChart
+// } from "variables/temp.jsx";
 
 
 class Dashboard extends React.Component {
-  state = { data: [] }
+  state = {
+    data: [],
+    temp: null,
+    chart: null
+  }
+
   componentDidMount() {
     setTimeout(() => {
-      axios.get('http://103.137.184.84:3001/newValue')
-        .then(result => {
-          this.setState({ data: result.data })
-          console.log("table:", this.state.data)
-        })
-        .catch(err => console.log("loi", err))
+      this.getNewValue()
+      // this.getChartLocal()
     }, 100);
+  }
+  getNewValue() {
+    axios.get('http://103.137.184.84:3001/newValue')
+      .then(result => {
+        this.setState({ data: result.data })
+      })
+      .catch(err => console.log("loi", err))
   }
   // componentWillMount(){
   //   setTimeout(()=>{}, 100)
@@ -82,7 +94,6 @@ class Dashboard extends React.Component {
   render() {
     // var data = this.props.newValue
     var data = this.state.data
-    console.log(this.props)
     return (
       <div className="content">
         <Row>
@@ -107,7 +118,7 @@ class Dashboard extends React.Component {
               <CardFooter>
                 <hr />
                 {parseFloat(data.amoniac) > 5 ?
-                  <div style={{color: 'red'}} className="stats">
+                  <div style={{ color: 'red' }} className="stats">
                     <i className="fas fa-sync-alt" /> Cảnh báo vượt ngưỡng
                     </div> :
                   <div className="stats">
@@ -141,7 +152,7 @@ class Dashboard extends React.Component {
               <CardFooter>
                 <hr />
                 {parseFloat(data.temp) > 25 ?
-                  <div style={{color: 'red'}} className="stats">
+                  <div style={{ color: 'red' }} className="stats">
                     <i className="far fa-calendar" /> Cảnh báo vượt ngưỡng
                     </div> :
                   <div className="stats">
@@ -175,7 +186,7 @@ class Dashboard extends React.Component {
               <CardFooter>
                 <hr />
                 {parseFloat(data.cacbonic) > 10 ?
-                  <div style={{color: 'red'}} className="stats">
+                  <div style={{ color: 'red' }} className="stats">
                     <i className="far fa-clock" /> Cảnh báo vượt ngưỡng
                   </div> :
                   <div className="stats">
@@ -209,12 +220,12 @@ class Dashboard extends React.Component {
               <CardFooter>
                 <hr />
                 {parseFloat(data.cacbonic) > 10 ?
-                  <div style={{color: 'red'}} className="stats">
-                  <i className="fas fa-sync-alt" /> Cảnh báo vượt ngưỡng
+                  <div style={{ color: 'red' }} className="stats">
+                    <i className="fas fa-sync-alt" /> Cảnh báo vượt ngưỡng
                 </div> :
                   <div className="stats">
-                  <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
-                </div>
+                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
+                  </div>
                 }
                 {/* <div className="stats">
                   <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
@@ -245,12 +256,12 @@ class Dashboard extends React.Component {
               <CardFooter>
                 <hr />
                 {parseFloat(data.lux) > 4500 ?
-                  <div style={{color: 'red'}} className="stats">
-                  <i className="fas fa-sync-alt" /> Cảnh báo vượt ngưỡng
+                  <div style={{ color: 'red' }} className="stats">
+                    <i className="fas fa-sync-alt" /> Cảnh báo vượt ngưỡng
                 </div> :
                   <div className="stats">
-                  <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
-                </div>
+                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
+                  </div>
                 }
                 {/* <div className="stats">
                   <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
@@ -279,12 +290,12 @@ class Dashboard extends React.Component {
               <CardFooter>
                 <hr />
                 {parseFloat(data.turb) >= 30 ?
-                  <div style={{color: 'red'}} className="stats">
-                  <i className="far fa-calendar" /> Cảnh báo vượt ngưỡng
+                  <div style={{ color: 'red' }} className="stats">
+                    <i className="far fa-calendar" /> Cảnh báo vượt ngưỡng
                 </div> :
                   <div className="stats">
-                  <i className="far fa-calendar" /> {moment(data.createdAt).fromNow()}
-                </div>
+                    <i className="far fa-calendar" /> {moment(data.createdAt).fromNow()}
+                  </div>
                 }
                 {/* <div className="stats">
                   <i className="far fa-calendar" /> {moment(data.createdAt).fromNow()}
@@ -313,12 +324,12 @@ class Dashboard extends React.Component {
               <CardFooter>
                 <hr />
                 {parseFloat(data.ph) >= 8.1 ?
-                  <div style={{color: 'red'}} className="stats">
-                  <i className="far fa-clock" /> Cảnh báo vượt ngưỡng
+                  <div style={{ color: 'red' }} className="stats">
+                    <i className="far fa-clock" /> Cảnh báo vượt ngưỡng
                 </div> :
                   <div className="stats">
-                  <i className="far fa-clock" /> {moment(data.createdAt).fromNow()}
-                </div>
+                    <i className="far fa-clock" /> {moment(data.createdAt).fromNow()}
+                  </div>
                 }
                 {/* <div className="stats">
                   <i className="far fa-clock" /> {moment(data.createdAt).fromNow()}
@@ -355,10 +366,38 @@ class Dashboard extends React.Component {
         </Row>
         <Row>
           <Col md="12">
+            <Card className="card-chart">
+              <CardHeader>
+                <CardTitle tag="h5">Lux</CardTitle>
+                <p className="card-category">Line Chart with Points</p>
+              </CardHeader>
+              <CardBody>
+                <Line
+                  data={luxChart.data}
+                  options={luxChart.options}
+                  width={400}
+                  height={100}
+                />
+              </CardBody>
+              <CardFooter>
+                <div className="chart-legend">
+                  {/* <i className="fa fa-circle text-info" /> pH */}
+                  <i className="fa fa-circle text-warning" /> lux
+                  </div>
+                {/* <hr />
+                <div className="card-stats">
+                  <i className="fa fa-check" /> Data information certified
+                  </div> */}
+              </CardFooter>
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">Oxy / Amoniac / Cacbonic</CardTitle>
-                <p className="card-category">24 Hours ago</p>
+                <CardTitle tag="h5">Oxy / Amoniac / Cacbonic / Turbidity</CardTitle>
+                <p className="card-category">10 times lastest</p>
               </CardHeader>
               <CardBody>
                 <Line
@@ -370,9 +409,9 @@ class Dashboard extends React.Component {
               </CardBody>
               <CardFooter>
                 <hr />
-                <div className="stats">
+                {/* <div className="stats">
                   <i className="fa fa-history" /> Updated 3 minutes ago
-                  </div>
+                  </div> */}
               </CardFooter>
             </Card>
           </Col>
@@ -397,17 +436,17 @@ class Dashboard extends React.Component {
                   <i className="fa fa-circle text-danger" /> None{" "}
                   <i className="fa fa-circle text-gray" /> None
                   </div>
-                <hr />
+                {/* <hr />
                 <div className="stats">
                   <i className="fa fa-calendar" /> Update Later
-                  </div>
+                  </div> */}
               </CardFooter>
             </Card>
           </Col>
           <Col md="8">
             <Card className="card-chart">
               <CardHeader>
-                <CardTitle tag="h5">Average temperature</CardTitle>
+                <CardTitle tag="h5">Temperature / pH</CardTitle>
                 <p className="card-category">Line Chart with Points</p>
               </CardHeader>
               <CardBody>
@@ -420,17 +459,18 @@ class Dashboard extends React.Component {
               </CardBody>
               <CardFooter>
                 <div className="chart-legend">
-                  {/* <i className="fa fa-circle text-info" /> Tesla Model S{" "} */}
-                  <i className="fa fa-circle text-warning" /> °C
+                  <i className="fa fa-circle text-info" /> pH
+                  <i style={{ marginLeft: "25px" }} className="fa fa-circle text-warning" /> °C
                   </div>
-                <hr />
+                {/* <hr />
                 <div className="card-stats">
                   <i className="fa fa-check" /> Data information certified
-                  </div>
+                  </div> */}
               </CardFooter>
             </Card>
           </Col>
         </Row>
+        
       </div>
     );
   }

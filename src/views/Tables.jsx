@@ -15,7 +15,7 @@ import moment from "moment";
 class Tables extends React.Component {
   state = {data: []}
   componentDidMount() {
-    axios.get('http://103.137.184.84:3001/sensor')
+    axios.get('http://localhost:3001/sensor')
     .then(result => {
       this.setState({data: result.data})
       console.log("table:", this.state.data)
@@ -37,33 +37,33 @@ class Tables extends React.Component {
                   <Table responsive>
                     <thead className="text-primary">
                       <tr>
-                        <th>Sensor</th>
-                        <th>Oxy</th>
-                        <th>Cacbonic</th>
-                        <th>pH</th>
-                        <th>Temperature</th>
-                        <th>Turbidity</th>
-                        <th>Light</th>
-                        <th>Amoniac</th>
-                        <th>Battery</th>
+                        <th style={{textAlign:"center"}}>Sensor</th>
+                        <th style={{textAlign:"center"}}>Oxy (mg/L)</th>
+                        <th style={{textAlign:"center"}}>Cacbonic (mg/L)</th>
+                        <th style={{textAlign:"center"}}>pH</th>
+                        <th style={{textAlign:"center"}}>Temperature (°C)</th>
+                        <th style={{textAlign:"center"}}>Turbidity (mg/L)</th>
+                        <th style={{textAlign:"center"}}>Light (lux)</th>
+                        <th style={{textAlign:"center"}}>Amoniac (mg/L)</th>
+                        <th style={{textAlign:"center"}}>Battery (%)</th>
                         {/* <th className="text-right">Date</th> */}
-                        <th className="text-right">Date</th>
+                        <th style={{textAlign:"center"}} >Date</th>
                       </tr>
                     </thead>
                     <tbody>
                       {data.map((element, index) => {
                         return(
                           <tr key={index}>
-                            <td>{element.addr}</td>
-                            <td>{element.oxy}</td>
-                            <td>{element.cacbonic}</td>
-                            <td>{element.ph}</td>
-                            <td>{element.temp} °C</td>
-                            <td>{element.turb}</td>
-                            <td>{element.lux}</td>
-                            <td>{element.amoniac}</td>
-                            <td>{element.bat} %</td>
-                            <td className="text-right">{moment(element.createdAt).fromNow()}</td>
+                            <td style={{textAlign:"center"}}>{element.addr}</td>
+                            <td style={{textAlign:"center"}}>{element.oxy}</td>
+                            <td style={{textAlign:"center"}}>{element.cacbonic}</td>
+                            <td style={{textAlign:"center"}}>{element.ph}</td>
+                            <td style={{textAlign:"center"}}>{element.temp}</td>
+                            <td style={{textAlign:"center"}}>{element.turb}</td>
+                            <td style={{textAlign:"center"}}>{element.lux}</td>
+                            <td style={{textAlign:"center"}}>{element.amoniac}</td>
+                            <td style={{textAlign:"center"}}>{element.bat}</td>
+                            <td style={{textAlign:"center"}}>{moment(element.createdAt).fromNow()}</td>
                           </tr>
                         )
                       })}

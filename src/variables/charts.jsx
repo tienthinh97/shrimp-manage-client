@@ -1,19 +1,124 @@
+
+var response
+fetch('http://localhost:3001/chart', {
+  // mode: 'cors',
+  method: 'GET',
+  headers: {
+    Accept: 'application/json',
+  },
+})
+.then(response => response.json())
+.then(json => {
+  response = json
+  console.log(response)
+})
+const dashboardNASDAQChart = {
+  data: canvas => {
+    return {
+      labels: [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        // "Nov",
+        // "Dec"
+      ],
+      datasets: [
+        {
+          // data: [26, 27, 26, 28, 26, 29, 30, 29, 28, 27],
+          data: response.temp,
+          fill: false,
+          borderColor: "#fbc658",
+          backgroundColor: "transparent",
+          pointBorderColor: "#fbc658",
+          pointRadius: 4,
+          pointHoverRadius: 4,
+          pointBorderWidth: 8
+        },
+        {
+          // data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45],
+          data: response.ph,
+          fill: false,
+          borderColor: "#51CACF",
+          backgroundColor: "transparent",
+          pointBorderColor: "#51CACF",
+          pointRadius: 4,
+          pointHoverRadius: 4,
+          pointBorderWidth: 8
+        }
+      ]
+    }
+  },
+  options: {
+    legend: {
+      display: false,
+      position: "top"
+    }
+  }
+};
+
+const luxChart = {
+  data: canvas => {
+    return {
+      labels: [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        // "Nov",
+        // "Dec"
+      ],
+      datasets: [
+        {
+          // data: [26, 27, 26, 28, 26, 29, 30, 29, 28, 27],
+          data: response.lux,
+          fill: false,
+          borderColor: "#fbc658",
+          backgroundColor: "transparent",
+          pointBorderColor: "#fbc658",
+          pointRadius: 4,
+          pointHoverRadius: 4,
+          pointBorderWidth: 8
+        }
+      ]
+    }
+  },
+  options: {
+    legend: {
+      display: false,
+      position: "top"
+    }
+  }
+};
+
 const dashboard24HoursPerformanceChart = {
   data: canvas => {
     return {
       labels: [
-        "0h",
-        "2h",
-        "4h",
-        "6h",
-        "8h",
-        "10h",
-        "12h",
-        "14h",
-        "16h",
-        "18h",
-        "20h",
-        "22h",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        // "20h",
+        // "22h",
       ],
       datasets: [
         {
@@ -22,7 +127,8 @@ const dashboard24HoursPerformanceChart = {
           pointRadius: 0,
           pointHoverRadius: 0,
           borderWidth: 3,
-          data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354, 360, 370]
+          // data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354, 360, 370]
+          data: response.oxy
         },
         {
           borderColor: "#f17e5d",
@@ -30,7 +136,8 @@ const dashboard24HoursPerformanceChart = {
           pointRadius: 0,
           pointHoverRadius: 0,
           borderWidth: 3,
-          data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420, 420, 400]
+          // data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420, 420, 400]
+          data: response.cacbonic
         },
         {
           borderColor: "#fcc468",
@@ -38,8 +145,18 @@ const dashboard24HoursPerformanceChart = {
           pointRadius: 0,
           pointHoverRadius: 0,
           borderWidth: 3,
-          data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484, 490, 450]
-        }
+          // data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484, 490, 450]
+          data: response.turb
+        },
+        {
+          borderColor: "#fcc468",
+          backgroundColor: "#fcc468",
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          borderWidth: 3,
+          // data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484, 490, 450]
+          data: response.amoniac
+        },
       ]
     };
   },
@@ -87,6 +204,7 @@ const dashboard24HoursPerformanceChart = {
     }
   }
 };
+
 
 const dashboardEmailStatisticsChart = {
   data: canvas => {
@@ -150,55 +268,10 @@ const dashboardEmailStatisticsChart = {
   }
 };
 
-const dashboardNASDAQChart = {
-  data: {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec"
-    ],
-    datasets: [
-      {
-        data: [26, 27, 26, 28, 26, 29, 30, 29, 28, 27, 27, 26],
-        fill: false,
-        borderColor: "#fbc658",
-        backgroundColor: "transparent",
-        pointBorderColor: "#fbc658",
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8
-      },
-      // {
-      //   data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
-      //   fill: false,
-      //   borderColor: "#51CACF",
-      //   backgroundColor: "transparent",
-      //   pointBorderColor: "#51CACF",
-      //   pointRadius: 4,
-      //   pointHoverRadius: 4,
-      //   pointBorderWidth: 8
-      // }
-    ]
-  },
-  options: {
-    legend: {
-      display: false,
-      position: "top"
-    }
-  }
-};
 
 module.exports = {
   dashboard24HoursPerformanceChart,
   dashboardEmailStatisticsChart,
-  dashboardNASDAQChart
+  dashboardNASDAQChart,
+  luxChart
 };

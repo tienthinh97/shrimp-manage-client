@@ -93,6 +93,7 @@ class Dashboard extends React.Component {
       console.log(error);
     });
   }
+
   sendOn() {
 		const socket = socketIOClient(this.state.endPoint);
 			socket.emit("device-one","on")
@@ -112,7 +113,6 @@ class Dashboard extends React.Component {
   };
   render() {
     const login = this.props.isLogin;
-    console.log("props in admin:", this.props)
     if(!login) {
       return <Redirect to="/signin" />;
     }
