@@ -1,6 +1,6 @@
 
 var response
-fetch('http://localhost:3001/chart', {
+fetch('http://103.137.184.84:3001/chart', {
   // mode: 'cors',
   method: 'GET',
   headers: {

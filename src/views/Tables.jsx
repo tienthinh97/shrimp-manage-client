@@ -15,7 +15,7 @@ import moment from "moment";
 class Tables extends React.Component {
   state = {data: []}
   componentDidMount() {
-    axios.get('http://localhost:3001/sensor')
+    axios.get('http://103.137.184.84:3001/sensor')
     .then(result => {
       this.setState({data: result.data})
       console.log("table:", this.state.data)
