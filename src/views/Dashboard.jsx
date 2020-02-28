@@ -17,7 +17,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import { newValue } from '../redux/actions';
-import moment from "moment";
+// import moment from "moment";
+import Moment from 'react-moment';
 
 // core components
 import {
@@ -47,7 +48,8 @@ class Dashboard extends React.Component {
   getNewValue() {
     axios.get('http://103.137.184.84:3001/newValue')
       .then(result => {
-        this.setState({ data: result.data })
+        this.setState({ data: result.data[0] })
+        console.log("new value:", result.data[0])
       })
       .catch(err => console.log("loi", err))
   }
@@ -122,7 +124,8 @@ class Dashboard extends React.Component {
                     <i className="fas fa-sync-alt" /> Cảnh báo vượt ngưỡng
                     </div> :
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
+                    {/* <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()} */}
+                    <i className="fas fa-sync-alt" /> <Moment format="DD/MM/YYYY - hh:mm:ss" date={data.createdAt} />
                   </div>
                 }
                 {/* <div className="stats">
@@ -156,7 +159,7 @@ class Dashboard extends React.Component {
                     <i className="far fa-calendar" /> Cảnh báo vượt ngưỡng
                     </div> :
                   <div className="stats">
-                    <i className="far fa-calendar" /> {moment(data.createdAt).fromNow()}
+                    <i className="far fa-calendar" /> <Moment format="DD/MM/YYYY - hh:mm:ss" date={data.createdAt} />
                   </div>
                 }
                 {/* <div className="stats">
@@ -190,7 +193,7 @@ class Dashboard extends React.Component {
                     <i className="far fa-clock" /> Cảnh báo vượt ngưỡng
                   </div> :
                   <div className="stats">
-                    <i className="far fa-clock" /> {moment(data.createdAt).fromNow()}
+                    <i className="far fa-clock" /> <Moment format="DD/MM/YYYY - hh:mm:ss" date={data.createdAt} />
                   </div>
                 }
                 {/* <div className="stats">
@@ -224,7 +227,7 @@ class Dashboard extends React.Component {
                     <i className="fas fa-sync-alt" /> Cảnh báo vượt ngưỡng
                 </div> :
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
+                    <i className="fas fa-sync-alt" /> <Moment format="DD/MM/YYYY - hh:mm:ss" date={data.createdAt} />
                   </div>
                 }
                 {/* <div className="stats">
@@ -260,7 +263,7 @@ class Dashboard extends React.Component {
                     <i className="fas fa-sync-alt" /> Cảnh báo vượt ngưỡng
                 </div> :
                   <div className="stats">
-                    <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
+                    <i className="fas fa-sync-alt" /> <Moment format="DD/MM/YYYY - hh:mm:ss" date={data.createdAt} />
                   </div>
                 }
                 {/* <div className="stats">
@@ -294,7 +297,7 @@ class Dashboard extends React.Component {
                     <i className="far fa-calendar" /> Cảnh báo vượt ngưỡng
                 </div> :
                   <div className="stats">
-                    <i className="far fa-calendar" /> {moment(data.createdAt).fromNow()}
+                    <i className="far fa-calendar" /> <Moment format="DD/MM/YYYY - hh:mm:ss" date={data.createdAt} />
                   </div>
                 }
                 {/* <div className="stats">
@@ -328,7 +331,7 @@ class Dashboard extends React.Component {
                     <i className="far fa-clock" /> Cảnh báo vượt ngưỡng
                 </div> :
                   <div className="stats">
-                    <i className="far fa-clock" /> {moment(data.createdAt).fromNow()}
+                    <i className="far fa-clock" /> <Moment format="DD/MM/YYYY - hh:mm:ss" date={data.createdAt} />
                   </div>
                 }
                 {/* <div className="stats">
@@ -358,7 +361,7 @@ class Dashboard extends React.Component {
               <CardFooter>
                 <hr />
                 <div className="stats">
-                  <i className="fas fa-sync-alt" /> {moment(data.createdAt).fromNow()}
+                  <i className="fas fa-sync-alt" /> <Moment format="DD/MM/YYYY - hh:mm:ss" date={data.createdAt} />
                 </div>
               </CardFooter>
             </Card>

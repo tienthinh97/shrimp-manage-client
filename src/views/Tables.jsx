@@ -11,6 +11,7 @@ import {
   Col
 } from "reactstrap";
 import moment from "moment";
+import Moment from 'react-moment';
 
 class Tables extends React.Component {
   state = {data: []}
@@ -63,7 +64,10 @@ class Tables extends React.Component {
                             <td style={{textAlign:"center"}}>{element.lux}</td>
                             <td style={{textAlign:"center"}}>{element.amoniac}</td>
                             <td style={{textAlign:"center"}}>{element.bat}</td>
-                            <td style={{textAlign:"center"}}>{moment(element.createdAt).fromNow()}</td>
+                            <td style={{textAlign:"center"}}>
+                              <Moment format="DD/MM/YYYY" date={element.createdAt} /><br/>
+                              <Moment format="hh:mm:ss" date={element.createdAt} />
+                            </td>
                           </tr>
                         )
                       })}
