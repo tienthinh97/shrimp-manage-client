@@ -399,7 +399,12 @@ class Dashboard extends React.Component {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">Oxy / Amoniac / Cacbonic / Turbidity</CardTitle>
+                <CardTitle tag="h5">
+                  <span style={{color: '#6bd098'}}>Oxy</span> / 
+                  <span style={{color: '#0000FF'}}>Amoniac</span> / 
+                  <span style={{color: '#f17e5d'}}>Cacbonic</span> / 
+                  <span style={{color: '#fcc468'}}>Turbidity</span>
+                  </CardTitle>
                 <p className="card-category">10 times lastest</p>
               </CardHeader>
               <CardBody>

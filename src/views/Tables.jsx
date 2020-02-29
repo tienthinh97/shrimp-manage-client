@@ -10,7 +10,6 @@ import {
   Row,
   Col
 } from "reactstrap";
-import moment from "moment";
 import Moment from 'react-moment';
 
 class Tables extends React.Component {

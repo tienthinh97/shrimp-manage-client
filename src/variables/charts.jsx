@@ -15,20 +15,19 @@ fetch('http://103.137.184.84:3001/chart', {
 const dashboardNASDAQChart = {
   data: canvas => {
     return {
-      labels: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        // "Nov",
-        // "Dec"
-      ],
+      // labels: [
+      //   "1",
+      //   "2",
+      //   "3",
+      //   "4",
+      //   "5",
+      //   "6",
+      //   "7",
+      //   "8",
+      //   "9",
+      //   "10"
+      // ],
+      labels: response.time,
       datasets: [
         {
           // data: [26, 27, 26, 28, 26, 29, 30, 29, 28, 27],
@@ -66,20 +65,19 @@ const dashboardNASDAQChart = {
 const luxChart = {
   data: canvas => {
     return {
-      labels: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        // "Nov",
-        // "Dec"
-      ],
+      // labels: [
+      //   "1",
+      //   "2",
+      //   "3",
+      //   "4",
+      //   "5",
+      //   "6",
+      //   "7",
+      //   "8",
+      //   "9",
+      //   "10"
+      // ],
+      labels: response.time,
       datasets: [
         {
           // data: [26, 27, 26, 28, 26, 29, 30, 29, 28, 27],
@@ -106,29 +104,28 @@ const luxChart = {
 const dashboard24HoursPerformanceChart = {
   data: canvas => {
     return {
-      labels: [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        // "20h",
-        // "22h",
-      ],
+      // labels: [
+      //   "1",
+      //   "2",
+      //   "3",
+      //   "4",
+      //   "5",
+      //   "6",
+      //   "7",
+      //   "8",
+      //   "9",
+      //   "10"
+      // ],
+      labels: response.time,
       datasets: [
         {
-          borderColor: "#6bd098",
-          backgroundColor: "#6bd098",
+          borderColor: "#0000FF",
+          backgroundColor: "#0000FF",
           pointRadius: 0,
           pointHoverRadius: 0,
           borderWidth: 3,
-          // data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354, 360, 370]
-          data: response.oxy
+          // data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484, 490, 450]
+          data: response.amoniac
         },
         {
           borderColor: "#f17e5d",
@@ -140,13 +137,13 @@ const dashboard24HoursPerformanceChart = {
           data: response.cacbonic
         },
         {
-          borderColor: "#fcc468",
-          backgroundColor: "#fcc468",
+          borderColor: "#6bd098",
+          backgroundColor: "#6bd098",
           pointRadius: 0,
           pointHoverRadius: 0,
           borderWidth: 3,
-          // data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484, 490, 450]
-          data: response.turb
+          // data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354, 360, 370]
+          data: response.oxy
         },
         {
           borderColor: "#fcc468",
@@ -155,7 +152,7 @@ const dashboard24HoursPerformanceChart = {
           pointHoverRadius: 0,
           borderWidth: 3,
           // data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484, 490, 450]
-          data: response.amoniac
+          data: response.turb
         },
       ]
     };
